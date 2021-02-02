@@ -1,0 +1,5 @@
+site_name: wiki
+
+nav:
+    - Home: index.md
+    - First: function_stack/multi_thread.md
