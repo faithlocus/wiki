@@ -75,18 +75,40 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
+            <li class="nav-item" data-level="1"><a href="#_1" class="nav-link">为什么多线程进入同一个函数可以保证数据的完整性？</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#_2" class="nav-link">理论</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_3" class="nav-link">图例</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#_4" class="nav-link">注意</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             
+            <li class="nav-item" data-level="1"><a href="#_5" class="nav-link">结论</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
         </ul>
     </div>
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h3 id="_1">为什么多线程进入同一个函数可以保证数据的完整性？</h3>
+<h1 id="_1">为什么多线程进入同一个函数可以保证数据的完整性？</h1>
+<h2 id="_2">理论</h2>
 <ol>
 <li>函数调用，就是call目标函数的地址进行执行（见后图，线程1与线程2对函数调用地址是相同的，同时函数的执行地址也是相同的）。</li>
 <li>程序执行依赖数据与代码（代码区的数据），数据区存储数据（寄存器，内存（栈区，数据区）），代码负责取出数据负责对其进行处理。</li>
 <li>函数调用的栈空间有调用者提供。 入栈的数据包括返回地址，参数，以及被调用函数中的数据，这些栈空间位于调用者的栈空间(依赖EBP,ESP等寄存器进行数据传递)，所以多线程数据互不干扰。</li>
 </ol>
+<h2 id="_3">图例</h2>
 <p>线程1调用前栈明细<br />
 <img alt="thread1_pre" src="../Snipaste_2021-02-02_10-20-20.png" />
 线程1调用过程中明细<br />
@@ -95,14 +117,13 @@
 <img alt="thread2_pre" src="../Snipaste_2021-02-02_10-24-03.png" />
 线程2调用过程中明细<br />
 <img alt="thread2_running" src="../Snipaste_2021-02-02_10-24-36.png" /></p>
-<ol>
-<li>若数据非本栈空间的数据，不涉及如本栈空间的操作，比如全局变量，这是多线程访问需要进行数据保护。<br />
+<h2 id="_4">注意</h2>
+<p>若数据非本栈空间的数据，不涉及如本栈空间的操作，比如全局变量，这是多线程访问需要进行数据保护。<br />
 t的内存地址如下<br />
-<img alt="&amp;t" src="../Snipaste_2021-02-02_10-15-03.png" /></li>
-</ol>
+<img alt="&amp;t" src="../Snipaste_2021-02-02_10-15-03.png" /></p>
 <p>函数调用如下<br />
 <img alt="stack" src="../Snipaste_2021-02-02_10-14-16.png" /></p>
-<h3 id="_2">结论</h3>
+<h1 id="_5">结论</h1>
 <p>由于代码的位置和数据的位置是独立的，本线程操作的数据只是自己栈空间的数据。</p></div>
             </div>
         </div>
